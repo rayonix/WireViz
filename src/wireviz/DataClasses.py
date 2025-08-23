@@ -272,6 +272,15 @@ class Cable:
     show_wirenumbers: Optional[bool] = None
     ignore_in_bom: bool = False
     additional_components: List[AdditionalComponent] = field(default_factory=list)
+    
+    # Optical fiber specific attributes
+    fiber_type: Optional[str] = None  # single-mode, multi-mode, plastic
+    core_diameter: Optional[float] = None  # in microns
+    cladding_diameter: Optional[float] = None  # in microns
+    numerical_aperture: Optional[float] = None  # NA for multi-mode fibers
+    wavelength: Union[int, List[int], None] = None  # operating wavelength(s) in nm
+    attenuation: Optional[float] = None  # dB/km
+    bandwidth: Optional[float] = None  # MHz·km for multi-mode
 
     def __post_init__(self) -> None:
         if isinstance(self.image, dict):
@@ -321,6 +330,27 @@ class Cable:
             self.length_unit = "m"
 
         self.connections = []
+
+        # Handle optical fiber specific attributes
+        if self.category == "fiber":
+            # For fiber cables, validate fiber-specific attributes
+            if self.fiber_type and self.fiber_type not in ["single-mode", "multi-mode", "plastic"]:
+                raise Exception(f"Unknown fiber type: {self.fiber_type}. Must be 'single-mode', 'multi-mode', or 'plastic'")
+            
+            # Set common defaults for different fiber types
+            if self.fiber_type == "single-mode" and not self.core_diameter:
+                self.core_diameter = 9  # Standard single-mode core
+                if not self.cladding_diameter:
+                    self.cladding_diameter = 125
+            elif self.fiber_type == "multi-mode":
+                if not self.core_diameter:
+                    self.core_diameter = 50  # Common multi-mode core (50/125)
+                if not self.cladding_diameter:
+                    self.cladding_diameter = 125
+            
+            # For fiber cables, use fibercount instead of wirecount in display
+            if not hasattr(self, '_is_fiber_cable'):
+                self._is_fiber_cable = True
 
         if self.wirecount:  # number of wires explicitly defined
             if self.colors:  # use custom color palette (partly or looped if needed)

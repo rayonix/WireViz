@@ -1,0 +1,7 @@
+Id	Description	Qty	Unit	Designators
+1	Cable, OM4 Duplex, 2 wires	2	m	F2
+2	Cable, OS2 G.652.D, 1 wires	5	m	F1
+3	Connector, FC, PC, 1 pins	1		J2
+4	Connector, MTRJ, duplex, 2 pins	1		J4
+5	Connector, SC, APC, 1 pins	1		J1
+6	Connector, ST, 2 pins	1		J3
