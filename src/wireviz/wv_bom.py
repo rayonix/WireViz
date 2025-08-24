@@ -143,8 +143,11 @@ def generate_bom(harness: "Harness") -> List[BOMEntry]:
         if not cable.ignore_in_bom:
             if cable.category != "bundle":
                 # process cable as a single entity
-                # Use "fibers" instead of "wires" for fiber cables
-                wire_or_fiber_term = "fibers" if cable.category == "fiber" else "wires"
+                # Use abbreviated "f" instead of "fibers" for fiber cables to save space
+                if cable.category == "fiber":
+                    wire_or_fiber_term = "f"
+                else:
+                    wire_or_fiber_term = "wires"
                 description = (
                     "Cable"
                     + (f", {cable.type}" if cable.type else "")
@@ -152,7 +155,7 @@ def generate_bom(harness: "Harness") -> List[BOMEntry]:
                     + (
                         f" x {cable.gauge} {cable.gauge_unit}"
                         if cable.gauge
-                        else f" {wire_or_fiber_term}"
+                        else f"{wire_or_fiber_term}" if cable.category == "fiber" else f" {wire_or_fiber_term}"
                     )
                     + (" shielded" if cable.shield else "")
                     + (

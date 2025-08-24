@@ -349,7 +349,7 @@ class Harness:
                         cable.spn if not isinstance(cable.spn, list) else None))],
                     [html_line_breaks(cable.type),
                      f'{cable.wirecount}x' if cable.show_wirecount and cable.category != "fiber" else None,
-                     f'{cable.wirecount} fiber{"s" if cable.wirecount != 1 else ""}' if cable.show_wirecount and cable.category == "fiber" else None,
+                     f'{cable.wirecount}f' if cable.show_wirecount and cable.category == "fiber" else None,
                      self._get_fiber_spec_string(cable) if cable.category == "fiber" else (f'{cable.gauge} {cable.gauge_unit}{awg_fmt}' if cable.gauge else None),
                      '+ S' if cable.shield else None,
                      f'{cable.length} {cable.length_unit}' if cable.length > 0 else None,
