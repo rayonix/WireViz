@@ -28,6 +28,7 @@ from wireviz.wv_bom import (
     component_table_entry,
     generate_bom,
     get_additional_component_table,
+    is_connector_used_with_fiber,
     pn_info_string,
 )
 from wireviz.wv_colors import get_color_hex, translate_color
@@ -228,7 +229,8 @@ class Harness:
                      html_line_breaks(pn_info_string(HEADER_SPN, connector.supplier, connector.spn))],
                     [html_line_breaks(connector.type),
                      html_line_breaks(connector.subtype),
-                     f'{connector.pincount}-pin' if connector.show_pincount else None,
+                     (f'{connector.pincount} ferrules' if is_connector_used_with_fiber(self, connector.name) 
+                      else f'{connector.pincount}-pin') if connector.show_pincount else None,
                      translate_color(connector.color, self.options.color_mode) if connector.color else None,
                      html_colorbar(connector.color)],
                     '<!-- connector table -->' if connector.style != 'simple' else None,
