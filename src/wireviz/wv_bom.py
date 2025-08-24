@@ -95,6 +95,16 @@ def bom_entry_key(entry: BOMEntry) -> BOMKey:
     return entry["key"]
 
 
+def is_connector_used_with_fiber(harness: "Harness", connector_name: str) -> bool:
+    """Check if a connector is connected to any fiber cables."""
+    for cable in harness.cables.values():
+        if cable.category == "fiber":
+            for connection in cable.connections:
+                if connection.from_name == connector_name or connection.to_name == connector_name:
+                    return True
+    return False
+
+
 def generate_bom(harness: "Harness") -> List[BOMEntry]:
     """Return a list of BOM entries generated from the harness."""
     from wireviz.Harness import Harness  # Local import to avoid circular imports
@@ -103,11 +113,13 @@ def generate_bom(harness: "Harness") -> List[BOMEntry]:
     # connectors
     for connector in harness.connectors.values():
         if not connector.ignore_in_bom:
+            # Use "ferrules" instead of "pins" for fiber connectors
+            pin_or_ferrule_term = "ferrules" if is_connector_used_with_fiber(harness, connector.name) else "pins"
             description = (
                 "Connector"
                 + (f", {connector.type}" if connector.type else "")
                 + (f", {connector.subtype}" if connector.subtype else "")
-                + (f", {connector.pincount} pins" if connector.show_pincount else "")
+                + (f", {connector.pincount} {pin_or_ferrule_term}" if connector.show_pincount else "")
                 + (
                     f", {translate_color(connector.color, harness.options.color_mode)}"
                     if connector.color
@@ -131,6 +143,8 @@ def generate_bom(harness: "Harness") -> List[BOMEntry]:
         if not cable.ignore_in_bom:
             if cable.category != "bundle":
                 # process cable as a single entity
+                # Use "fibers" instead of "wires" for fiber cables
+                wire_or_fiber_term = "fibers" if cable.category == "fiber" else "wires"
                 description = (
                     "Cable"
                     + (f", {cable.type}" if cable.type else "")
@@ -138,7 +152,7 @@ def generate_bom(harness: "Harness") -> List[BOMEntry]:
                     + (
                         f" x {cable.gauge} {cable.gauge_unit}"
                         if cable.gauge
-                        else " wires"
+                        else f" {wire_or_fiber_term}"
                     )
                     + (" shielded" if cable.shield else "")
                     + (
