@@ -37,6 +37,9 @@ COLOR_CODES = {
     # fmt: on
     "T568A": ["WHGN", "GN", "WHOG", "BU", "WHBU", "OG", "WHBN", "BN"],
     "T568B": ["WHOG", "OG", "WHGN", "BU", "WHBU", "GN", "WHBN", "BN"],
+    # Optical fiber color codes
+    "FIBER12": ["BU", "OG", "GN", "BN", "SL", "RD", "BK", "YE", "VT", "PK", "AQ", "RO"],  # 12-fiber standard
+    "FIBER24": ["BU", "OG", "GN", "BN", "SL", "RD", "BK", "YE", "VT", "PK", "AQ", "RO"] * 2,  # 24-fiber (2 groups)
 }
 
 # Convention: Color names should be 2 letters long, to allow for multicolored wires
@@ -59,6 +62,8 @@ _color_hex = {
     "BG": "#ceb673",  # beige
     "IV": "#f5f0d0",  # ivory
     "SL": "#708090",
+    "AQ": "#7fffd4",  # aquamarine
+    "RO": "#ff69b4",  # rose
     "CU": "#d6775e",  # Faux-copper look, for bare CU wire
     "SN": "#aaaaaa",  # Silvery look for tinned bare wire
     "SR": "#84878c",  # Darker silver for silvered wire
@@ -83,6 +88,8 @@ _color_full = {
     "BG": "beige",
     "IV": "ivory",
     "SL": "slate",
+    "AQ": "aqua",
+    "RO": "rose",
     "CU": "copper",
     "SN": "tin",
     "SR": "silver",
@@ -107,6 +114,8 @@ _color_ger = {
     "BG": "bg",  # beige
     "IV": "eb",  # elfenbeinfarben
     "SL": "si",  # Schiefer
+    "AQ": "aq",  # aqua
+    "RO": "ro",  # rosa
     "CU": "ku",  # Kupfer
     "SN": "vz",  # verzinkt
     "SR": "ag",  # Silber

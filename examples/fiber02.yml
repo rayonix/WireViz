@@ -1,0 +1,30 @@
+# Multi-mode fiber trunk cable example
+connectors:
+  J1:
+    type: MPO/MTP
+    subtype: male
+    pincount: 12
+  J2:
+    type: MPO/MTP
+    subtype: female  
+    pincount: 12
+
+cables:
+  F1:
+    category: fiber
+    type: OM3 Trunk Cable
+    fiber_type: multi-mode
+    core_diameter: 50
+    cladding_diameter: 125
+    numerical_aperture: 0.2
+    wavelength: 850
+    bandwidth: 2000
+    length: 10
+    wirecount: 12
+    color_code: FIBER12
+
+connections:
+  -
+    - J1: [1-12]
+    - F1: [1-12]
+    - J2: [1-12]

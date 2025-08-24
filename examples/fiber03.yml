@@ -1,0 +1,52 @@
+# Comprehensive fiber optic example with different connectors
+connectors:
+  J1:
+    type: SC
+    subtype: APC
+    pinlabels: [TX]
+  J2:
+    type: FC
+    subtype: PC
+    pinlabels: [RX]
+  J3:
+    type: ST
+    pinlabels: [TX, RX] 
+  J4:
+    type: MTRJ
+    subtype: duplex
+    pinlabels: [RX, TX]
+
+cables:
+  F1:
+    category: fiber
+    type: OS2 G.652.D
+    fiber_type: single-mode
+    core_diameter: 9
+    cladding_diameter: 125
+    wavelength: 1550
+    attenuation: 0.4
+    length: 5
+    wirecount: 1
+    colors: [YE]
+  F2:
+    category: fiber
+    type: OM4 Duplex
+    fiber_type: multi-mode
+    core_diameter: 50
+    cladding_diameter: 125
+    numerical_aperture: 0.2
+    wavelength: 850
+    bandwidth: 4700
+    length: 2
+    wirecount: 2
+    colors: [AQ, AQ]  # Aqua for OM4
+
+connections:
+  -
+    - J1: 1
+    - F1: 1
+    - J2: 1
+  -
+    - J3: [1,2]
+    - F2: [1,2]
+    - J4: [2,1]  # crossover

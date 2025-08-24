@@ -96,6 +96,7 @@ tweak:  # optional tweaking of .gv output
                         # generates one BOM item for every wire in the bundle
                         # instead of a single item for the entire cable;
                         # renders with a dashed outline
+                        # may be set to fiber for optical fiber cables
   type: <str>   
   gauge: <int/float/str>  # allowed formats:
                           # <int/float> mm2  is understood
@@ -103,6 +104,7 @@ tweak:  # optional tweaking of .gv output
                           # <int/float>      is assumed to be mm2
                           # <str>            custom units and formats are allowed
                           #                  but unavailable for auto-conversion
+                          # Not applicable for fiber cables
   show_equiv: <bool>      # defaults to false; can auto-convert between mm2 and AWG
                           # and display the result when set to true
   length: <int/float>[ <unit>]  # <int/float> is assumed to be in meters unless <unit> is specified
@@ -117,6 +119,15 @@ tweak:  # optional tweaking of .gv output
   color: <color>  # see below
   image: <image>  # see below
   notes: <str>   
+
+  # Optical fiber specific attributes (only applicable when category: fiber)
+  fiber_type: <str>        # single-mode, multi-mode, or plastic
+  core_diameter: <float>   # core diameter in microns (e.g., 9 for SM, 50 or 62.5 for MM)
+  cladding_diameter: <float> # cladding diameter in microns (typically 125)
+  numerical_aperture: <float> # NA for multi-mode fibers (e.g., 0.2, 0.275)
+  wavelength: <int/list>   # operating wavelength(s) in nm (e.g., 850, 1310, 1550, [1310, 1550])
+  attenuation: <float>     # attenuation in dB/km
+  bandwidth: <float>       # bandwidth in MHz·km for multi-mode fibers
 
   # product information (all optional)
   ignore_in_bom: <bool>  # if set to true the cable or wires are not added to the BOM
@@ -520,6 +531,8 @@ Supported color codes:
 - `TEL` and `TELALT`  for [25-pair color code](https://en.wikipedia.org/wiki/25-pair_color_code)
 - `T568A` and `T568B` for [TIA/EIA-568](https://en.wikipedia.org/wiki/TIA/EIA-568#Wiring) (e.g. Ethernet)
 - `BW` for alternating black and white
+- `FIBER12` for 12-fiber optical cable color code (blue, orange, green, brown, slate, red, black, yellow, violet, pink, aqua, rose)
+- `FIBER24` for 24-fiber optical cable color code (two groups of 12-fiber colors)
 
 
 ## Images

@@ -1,0 +1,55 @@
+# Test all fiber features in one comprehensive example
+connectors:
+  # Different fiber connector types
+  J1:
+    type: LC
+    subtype: UPC
+    pinlabels: [TX, RX]
+  J2:
+    type: SC
+    subtype: APC
+    pinlabels: [TX, RX]  
+  J3:
+    type: MPO
+    subtype: female
+    pincount: 8
+
+cables:
+  # Single-mode fiber with all attributes
+  SM_FIBER:
+    category: fiber
+    type: OS2 G.657.A1
+    fiber_type: single-mode
+    core_diameter: 9
+    cladding_diameter: 125
+    wavelength: [1310, 1550]
+    attenuation: 0.4
+    length: 15
+    wirecount: 2
+    colors: [YE, YE]
+    notes: "Bend-insensitive single-mode fiber"
+
+  # Multi-mode fiber with numerical aperture and bandwidth
+  MM_FIBER:
+    category: fiber
+    type: OM5 Wide-Band
+    fiber_type: multi-mode
+    core_diameter: 50
+    cladding_diameter: 125
+    numerical_aperture: 0.2
+    wavelength: [850, 950]
+    bandwidth: 4700
+    attenuation: 3.0
+    length: 5
+    wirecount: 8
+    color_code: FIBER12
+    notes: "Wideband multimode for SWDM applications"
+
+connections:
+  -
+    - J1: [1,2]
+    - SM_FIBER: [1,2]
+    - J2: [1,2]
+  -
+    - J3: [1-8] 
+    - MM_FIBER: [1-8]

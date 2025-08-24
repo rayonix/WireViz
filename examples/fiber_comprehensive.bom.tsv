@@ -1,0 +1,6 @@
+Id	Description	Qty	Unit	Designators
+1	Cable, OM5 Wide-Band, 8f	5	m	MM_FIBER
+2	Cable, OS2 G.657.A1, 2f	15	m	SM_FIBER
+3	Connector, LC, UPC, 2 ferrules	1		J1
+4	Connector, MPO, female, 8 ferrules	1		J3
+5	Connector, SC, APC, 2 ferrules	1		J2

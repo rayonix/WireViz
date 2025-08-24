@@ -1,0 +1,28 @@
+# Single-mode fiber optic cable example
+connectors:
+  J1:
+    type: LC
+    subtype: duplex
+    pinlabels: [TX, RX]
+  J2:
+    type: LC  
+    subtype: duplex
+    pinlabels: [RX, TX]
+
+cables:
+  F1:
+    category: fiber
+    type: Single-mode OS2
+    fiber_type: single-mode
+    core_diameter: 9
+    cladding_diameter: 125
+    wavelength: [1310, 1550]
+    length: 50
+    wirecount: 2
+    colors: [YE, YE]  # Standard single-mode yellow
+
+connections:
+  -
+    - J1: [1,2]
+    - F1: [1,2] 
+    - J2: [2,1]  # crossover for duplex
